@@ -1,0 +1,17 @@
+/**
+ * @file   Version.h.in 
+ * @author Irina Fedotova <i.fedotova@emw.hs-anhalt.de> 
+ * @date   Apr, 2012
+ * @brief  This file is only for versioning of HighPerTimer. Each make of HighPerTimer increments the build number
+ * 
+ * Copyright (C) 2012-2016,  Future Internet Lab Anhalt (FILA),
+ * Anhalt University of Applied Sciences, Koethen, Germany. All Rights Reserved.
+ */ 
+
+#ifndef VERSION_H
+#define VERSION_H
+
+static const int Major = 1;
+static const int Minor = 1;
+static const int Build = 5;
+#endif // ----- VERSION_H -------
