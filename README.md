@@ -17,8 +17,9 @@ Please consider that we have the following modules:
 * scripts: only for versioning of the library 
 
 ### Required software
-In order to build you will need: gcc 4.7.X (or later)
-it is also recommended to use gcc flag: -std=c++0x and linking: -lpthread -lstdc++ -lm -lrt 
+In order to build you will need: gcc 4.7.X (or later).
+
+Recommended gcc flags: -std=c++0x and linking: -lpthread -lstdc++ -lm -lrt 
 
 ### Basic examples of usage
 Simple time measurement 
