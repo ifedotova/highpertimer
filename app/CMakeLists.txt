@@ -8,32 +8,24 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../lib/libHPTimer
 
 ADD_CUSTOM_COMMAND (OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Version.h
 		    # copy the version number
-                    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/Version.h.in
-		    ${CMAKE_CURRENT_BINARY_DIR}/Version.h
-		    COMMAND ${CMAKE_SOURCE_DIR}/scripts/version_inkr.sh
-                    COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/Version.h
-		    ${CMAKE_CURRENT_SOURCE_DIR}/Version.h.in
+        COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/Version.h.in ${CMAKE_CURRENT_BINARY_DIR}/Version.h
+		    COMMAND ${CMAKE_SOURCE_DIR}/scripts/version_inkr.sh 
+        COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/Version.h ${CMAKE_CURRENT_SOURCE_DIR}/Version.h.in
 		    # dependancies
-                    DEPENDS ${AllSrcs};Version.h.in
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                    COMMENT "UPDATING Version.h in ${CMAKE_CURRENT_BINARY_DIR}"
+        DEPENDS ${AllSrcs};Version.h.in
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "UPDATING Version.h in ${CMAKE_CURRENT_BINARY_DIR}"
 )
+
+set_target_properties ( HPTimer PROPERTIES IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/lib/libHPTimer/libHPTimer.a )
 
 link_libraries( HPTimer )
 
-set ( SOURCES
-	 Version.h
-         TimerSourceTest.cpp)
-#	 InterruptTestThread.cpp)
-#	 InterruptTestPthread.cpp)
-       
+file( GLOB APP_SOURCES ${CMAKE_SOURCE_DIR}/app/*.cpp )
 
-add_executable (TimerSourceTest ${SOURCES})
-
-ADD_DEPENDENCIES (TimerSourceTest HPTimer Version.h)
-#target_link_libraries(TimerSourceTest ${CMAKE_CURRENT_SOURCE_DIR}/../lib/libHPTimer/libHPTimer.a) 
-
-
-
-
-
+foreach( testSourceFile ${APP_SOURCES} )
+	get_filename_component( testExecutableName ${testSourceFile} NAME )
+	message( "Adding executable " ${testExecutableName} )
+	add_executable( ${testExecutableName} ${testSourceFile} )
+	target_link_libraries( ${testExecutableName} HPTimer )
+endforeach( testSourceFile ${APP_SOURCES} )
