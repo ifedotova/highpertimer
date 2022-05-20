@@ -24,7 +24,7 @@ link_libraries( HPTimer )
 file( GLOB APP_SOURCES ${CMAKE_SOURCE_DIR}/app/*.cpp )
 
 foreach( testSourceFile ${APP_SOURCES} )
-	get_filename_component( testExecutableName ${testSourceFile} NAME )
+	get_filename_component( testExecutableName ${testSourceFile} NAME_WE )
 	message( "Adding executable " ${testExecutableName} )
 	add_executable( ${testExecutableName} ${testSourceFile} )
 	target_link_libraries( ${testExecutableName} HPTimer )
